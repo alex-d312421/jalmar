@@ -4,3 +4,13 @@
 
 The folder `dataset` contains 14 instance files. Each CSV file is a set of boxes containing board games. Theere is one row per box and the fields are the name, length, width and height of that box. The goal pack all the boxes in the smallest 
 
+## Submitting solutions
+
+
+## Solving with Tempo
+
+
+## Solving with Minizinc
+
+
+## Solving with CPMpy (or other Python toolkits)
