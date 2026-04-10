@@ -12,6 +12,12 @@ There are helpers scripts for the following toolkits:
 
 The solutions can be visualized using the Python library `blockviz`...
 
+## scripts  
+
+> git clone https://gitlab.laas.fr/roc/titouan-seraud/pms.git
+
+> pip install pms
+
 
 ## Setting up your repository
 
