@@ -23,8 +23,11 @@ First install the parsing and visualization scripts (requires Python 3.12):
 
 > pip install git+https://gitlab.laas.fr/roc/titouan-seraud/pms.git
 
+## Pipeline description
+TODO
 
-## Setting up your repository
+
+## Repository setup
 Here is the procedure to setup your repository to submit solutions. It basically consists of copying this repository content to your new repository you will work on. You have three alternatives for this: GitHub import, GitLab import or manual.
 
 ### GitHub import
@@ -55,36 +58,42 @@ git commit -m "Initial commit."
 git push --set-upstream origin main
 ```
 
-1. Clone this repo
+## Installation
+`pms` and `blockviz` python packages are necessary, regardless of your solving techniques. The first one contains scripts to check and visualize solutions while the second contains the 3D rendering system.
 
-> git clone https://gitlab.laas.fr/ROC/hackathon-pms-2026-game-packing
+Then, you can choose the framework you prefer, depending on skills and constraint programming knowledge. Here are the three supported frameworks we have tested, from easiest to hardest.
+- **MiniZinc** is a modelling language and tool chain for constraint optimisation problems
+- **CPMpy** is a Constraint Programming and Modeling library in Python
+- **Tempo** is a C++ solver developed by the organizers
 
-2. Create an empty repository on any git platform (say git@github.com/me/A-team)
+### pms and blockviz
+First, make sure you have at least python 3.12 installed. Then, make sure your python environment is ready. Once it is, install both `pms` with `pip`.
+```
+pip install git+https://gitlab.laas.fr/roc/titouan-seraud/pms.git
+```
+Since `pms` depends on `blockviz`, both of them are installed.
 
-3. push the team and solution files in your repo
+You can check the installation succeded with the following commands.
+```
+pms-check-repo --help
+blockviz-mock | blockviz
+```
 
->>>
+If you have any issue or want more details on these packages, please read the documentation in their respective repository.
+- Blockviz &rarr; [https://gitlab.laas.fr/roc/titouan-seraud/blockviz](https://gitlab.laas.fr/roc/titouan-seraud/blockviz)
+- PMS &rarr; [https://gitlab.laas.fr/roc/titouan-seraud/pms](https://gitlab.laas.fr/roc/titouan-seraud/pms)
 
-cd hackathon-pms-2026-game-packing
+### MiniZinc
+Please follow the [official installation procedure](https://docs.minizinc.dev/en/stable/installation.html).
 
-git remote add team.json git@github.com/me/A-team
+### CPMpy
+Please follow the [official installation procedure](https://cpmpy.readthedocs.io/en/latest/installation_instructions.html).
 
-git remote add solutions git@github.com/me/A-team
+### Tempo
+TODO
 
->>>
+## Subscribing your team
+TODO
 
-4. Fill the file `team.json` with the relevant information
-
-5. *When you find a new best solution*, copy it into the corresponding solution file and push into the corrsponding solution file, e.g., if this is a solution for `dataset/random_0005.csv`, copy it into `solutions/random_0005.json` and:
-
->>>
-
-git commit -m "new solution" solutions/random_0005.json 
-
-git push main
-
->>>
-
-
-
-
+## Useful links
+TODO
