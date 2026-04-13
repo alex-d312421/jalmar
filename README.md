@@ -19,6 +19,7 @@ There are helpers scripts for the following toolkits:
 - [Installation](#installation)
 - [Team subscription](#team-subscription)
 - [Visualizing solutions](#visualizing-solutions)
+- [Checking solutions](#checking-solutions)
 - [Submitting solutions](#submitting-solutions)
 - [Useful links](#useful-links)
 </details>
@@ -147,7 +148,21 @@ Remark: if you have parsing errors, have a look at `--permissive-io` option.
 
 Use the json `text` field as you want. For example, you can write debug information, current run time, solution count...
 
-More information on [blockviz repository](https://gitlab.laas.fr/roc/titouan-seraud/blockviz).
+More info on [blockviz repository](https://gitlab.laas.fr/roc/titouan-seraud/blockviz).
+
+
+## Checking solutions
+You have several scripts to check your solutions in `pms` python package. To quickly check your repository, use `pms-check-repo`.
+```
+pms-check-repo
+```
+
+If you have a check fail status on some instance (e.g. `homo_0005.csv`), you might need more details. You can get these with `pms-check` command.
+```
+pms-check --instance dataset/homo_0005.csv solutions/homo_0005.json
+```
+
+More info on [pms repository](https://gitlab.laas.fr/roc/titouan-seraud/pms).
 
 
 ## Submitting solutions
