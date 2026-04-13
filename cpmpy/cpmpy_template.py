@@ -9,7 +9,7 @@ from cpmpy.solvers.ortools import OrtSolutionPrinter
 import sys
 from contextlib import contextmanager
 
-
+import os
 
 
 
@@ -151,12 +151,26 @@ class CPMpyModel:
 # Main code
 # ===============================
 
-
-# Paths
-data_path = ...
-solution_path = "solution.json"
-
 def main():
+    folder_path = "./dataset"
+    if True:
+
+        csv_files = [f for f in os.listdir(folder_path) if f.startswith("homo") and f.endswith(".csv")]
+
+        csv_files
+        for file in csv_files:
+            # Paths
+            data_path = folder_path+"/"+file
+            solution_path = "./solutions/"+file.replace("csv","json")
+            print(data_path)
+            solve(data_path,solution_path)
+    else:
+        file="hetero_0100.csv"
+        data_path = folder_path+"/"+file
+        solution_path = "./solutions/"+file.replace("csv","json")
+        solve(data_path,solution_path)
+
+def solve(data_path,solution_path):
     # Initialize CPMpy model, open data and create variables
     mymodel = CPMpyModel()
     mymodel.open_data(path = data_path)
@@ -164,12 +178,30 @@ def main():
 
     # You can add here your constraints to the model CPMpy, which you can access with mymodel.model, using variables saved in list_boxes_var.
 
-
+    # overlap x
+#    mymodel.model+= (j.position[0] + j.box.size[0] < i.position[0] for j in list_boxes_var for i in list_boxes_var if i!=j)
+    sortList= sorted(list_boxes_var,key= lambda x: x.box.size[0]*x.box.size[1]*x.box.size[2])
+    mymodel.model+=(sortList[0].position[0]==0)
+    mymodel.model+=(sortList[0].position[1]==0)
+    mymodel.model+=(sortList[0].position[2]==0)
+    
+    for x in range(len(sortList)):
+        for y in range(x+1,len(sortList)):
+            i=sortList[x]
+            j=sortList[y]
+            mymodel.model += (
+                (i.position[0]+i.box.size[0] <= j.position[0])|
+                (i.position[1]+i.box.size[1] <= j.position[1])|
+                (i.position[2]+i.box.size[2] <= j.position[2])|
+                (j.position[0]+j.box.size[0] <= i.position[0])|
+                (j.position[1]+j.box.size[1] <= i.position[1])|
+                (j.position[2]+j.box.size[2] <= i.position[2])
+            )
 
     
     # Create objective function and solve the model
     mymodel.create_objective()
-    mymodel.solve(path = solution_path, time_limit = 60)   # You can add additional ORTools solver argument (like I've done with time_limit here)
+    mymodel.solve(path = solution_path, time_limit = 120,symmetry_level = 2)   # You can add additional ORTools solver argument (like I've done with time_limit here)
 
     ## If you wish to save ORTools solver logs in a file, you can use the following arguments
     # mymodel.solve(path = solution_path, ortools_logs = True, ortools_logs_path = "ortools_logs.txt", time_limit = 60)
